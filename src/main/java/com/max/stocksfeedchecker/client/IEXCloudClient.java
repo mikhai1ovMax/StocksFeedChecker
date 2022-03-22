@@ -15,6 +15,7 @@ import java.util.concurrent.Callable;
 
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@RequiredArgsConstructor
 public class IEXCloudClient implements Callable<Company> {
 
     @Value("${iexcloud.URL}")
@@ -25,12 +26,7 @@ public class IEXCloudClient implements Callable<Company> {
 
     private String symbol;
 
-    public IEXCloudClient(String symbol) {
-        this.symbol = symbol;
-    }
 
-    public IEXCloudClient() {
-    }
 
     private final RestTemplate restTemplate = new RestTemplate();
 
