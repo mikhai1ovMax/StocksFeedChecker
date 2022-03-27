@@ -26,8 +26,6 @@ public class IEXCloudClient implements Callable<Company> {
 
     private String symbol;
 
-
-
     private final RestTemplate restTemplate = new RestTemplate();
 
 
@@ -43,8 +41,15 @@ public class IEXCloudClient implements Callable<Company> {
 
 
     @Override
-    public Company call() throws Exception {
+    public Company call() {
         return restTemplate.getForObject(URL + "stock/" + symbol + "/quote?token=" + token, Company.class);
     }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
 }
-//URL + "ref-data/symbols?token="+ token

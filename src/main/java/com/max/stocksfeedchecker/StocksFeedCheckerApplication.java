@@ -7,16 +7,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
+
 @SpringBootApplication
 public class StocksFeedCheckerApplication implements CommandLineRunner {
 
     private final IEXCloudClient iexCloudClient;
-    private final IEXService IEXService;
+    private final IEXService iexService;
 
     @Autowired
-    public StocksFeedCheckerApplication(IEXCloudClient iexCloudClient, IEXService IEXService) {
+    public StocksFeedCheckerApplication(IEXCloudClient iexCloudClient, IEXService iexService) {
         this.iexCloudClient = iexCloudClient;
-        this.IEXService = IEXService;
+        this.iexService = iexService;
     }
 
     public static void main(String[] args) {
@@ -25,8 +27,7 @@ public class StocksFeedCheckerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        iexCloudClient.getCompanyBySymbol("A");
-//        iexCloudClient.getAllSymbols();
-        IEXService.getAllCompanyData();
+        List<String> symbols = iexCloudClient.getCompaniesSymbols();
+        iexService.printHighestValueStocks(iexService.getCompaniesData(symbols));
     }
 }
