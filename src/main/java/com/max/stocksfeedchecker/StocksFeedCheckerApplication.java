@@ -28,6 +28,10 @@ public class StocksFeedCheckerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<String> symbols = iexCloudClient.getCompaniesSymbols();
-        iexService.printHighestValueStocks(iexService.getCompaniesData(symbols));
+        while (true) {
+            new Thread(()-> iexService.printHighestValueStocks(iexService.getCompaniesData(symbols))).run();
+
+            Thread.sleep(5000);
+        }
     }
 }

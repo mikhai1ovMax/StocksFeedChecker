@@ -2,6 +2,7 @@ package com.max.stocksfeedchecker.service;
 
 import com.max.stocksfeedchecker.client.IEXCloudClient;
 import com.max.stocksfeedchecker.model.Company;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -30,7 +31,8 @@ public class IEXService {
         this.applicationContext = applicationContext;
     }
 
-    public List<Company> getCompaniesData(List<String> symbols) throws InterruptedException {
+    @SneakyThrows
+    public List<Company> getCompaniesData(List<String> symbols) {
         List<IEXCloudClient> clients = new ArrayList<>();
         ExecutorService executor = Executors.newCachedThreadPool();
 
