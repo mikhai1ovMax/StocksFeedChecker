@@ -39,7 +39,7 @@ public class StocksFeedCheckerApplication implements CommandLineRunner {
             iexService.printMostResentCompanies(companies);
             repository.saveAll(companies);
             time = System.currentTimeMillis() - time;
-            System.out.println(time);
+//            System.out.println(time);
             if (time < 5000)
                 Thread.sleep(5000 - time);
         }

@@ -77,46 +77,45 @@ public class IEXService {
         Collections.sort(companies, comparatorByValue.reversed());
         log.info("top 5 highest value stocks:");
         log.info(companies.get(0).toString());
-        companies.remove(0);
-        companies = companies.subList(0, 4);
-        Collections.sort(companies, comparatorByName);
+
+        List<Company> companies1 = new ArrayList<>(companies);
+        companies1.remove(0);
+        Collections.sort(companies1, comparatorByName);
+        companies1 = companies1.subList(0, 4);
         for (Company company :
-                companies) {
+                companies1) {
             log.info(company.toString());
         }
     }
 
-    public void printMostResentCompanies(List<Company> newValues) {
+    public void printMostResentCompanies(List<Company> companies) {
+
+        List<Company> newValues = new ArrayList<>(companies);
         List<Company> oldValues = repository.findAll();
 
         for (int i = 0; i < newValues.size() - 1; i++) {
             Company newCompanyData = newValues.get(i);
             Company oldCompanyData = oldValues.stream().filter(x -> x.getCompanyName().equals(newCompanyData.getCompanyName())).findFirst().orElse(null);
-            if (oldCompanyData != null)
-                newCompanyData.setDifferenceInCost(newCompanyData.getLatestPrice().subtract(oldCompanyData.getLatestPrice()));
+            if (oldCompanyData != null) {
+                BigDecimal differenceInCost = newCompanyData.getLatestPrice().subtract(oldCompanyData.getLatestPrice());
+                if (differenceInCost.compareTo(BigDecimal.ZERO) < 0)
+                    differenceInCost = differenceInCost.multiply(BigDecimal.valueOf(0-1));
+                newValues.get(i).setDifferenceInCost(differenceInCost);
+            }
         }
 
-        try {
+        for (int i = 0; i < newValues.size(); i++) {
+            if (newValues.get(i).getDifferenceInCost() == null) {
+                newValues.remove(i);
+                i--;
+            }
+        }
+
+        if (newValues.size() > 1)
             newValues.sort(comparatorByDifferenceInCost.reversed());
-        } catch (NullPointerException e) {
-            List<Company> companies = new ArrayList<>();
-            for (int i = 0; i < newValues.size() - 1; i++) {
-                if (newValues.get(i).getDifferenceInCost() != null) {
-                    companies.add(newValues.get(i));
-                }
-            }
-            companies.sort(comparatorByDifferenceInCost.reversed());
-            if(companies.size() > 0) {
-                log.info("companies that have the greatest change percent in stock value:");
-                for (int i = 0; i < companies.size()-1; i++) {
-                    log.info(companies.get(i).toString());
-                }
-            }
-        }
 
-
-        if(newValues.size() > 4){
-            log.info("companies that have the greatest change percent in stock value:");
+        log.info("companies that have the greatest change percent in stock value:");
+        if (newValues.size() > 4) {
             for (int i = 0; i < 5; i++)
                 log.info(newValues.get(i).toString());
         } else {
