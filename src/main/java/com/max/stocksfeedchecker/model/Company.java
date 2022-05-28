@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
 @Data
 @RequiredArgsConstructor
 @ToString
-public class Company {
+public class Company implements Serializable {
 
     @Id
     @GeneratedValue
@@ -35,6 +36,9 @@ public class Company {
 
     @Column(name = "latest_price")
     private BigDecimal latestPrice;
+
+    @Column(name = "difference_in_cost")
+    private BigDecimal differenceInCost;
 
     @Override
     public boolean equals(Object o) {
