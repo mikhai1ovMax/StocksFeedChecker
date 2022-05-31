@@ -1,0 +1,10 @@
+com/max/stocksfeedchecker/repository/CompanyRepository.java
+ com.max.stocksfeedchecker.repository.CompanyRepository
+com/max/stocksfeedchecker/model/Company.java
+ com.max.stocksfeedchecker.model.Company
+com/max/stocksfeedchecker/StocksFeedCheckerApplication.java
+ com.max.stocksfeedchecker.StocksFeedCheckerApplication
+com/max/stocksfeedchecker/client/IEXCloudClient.java
+ com.max.stocksfeedchecker.client.IEXCloudClient
+com/max/stocksfeedchecker/service/IEXService.java
+ com.max.stocksfeedchecker.service.IEXService

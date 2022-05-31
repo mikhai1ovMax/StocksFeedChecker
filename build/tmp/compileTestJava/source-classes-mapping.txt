@@ -1,0 +1,2 @@
+com/max/stocksfeedchecker/StocksFeedCheckerApplicationTests.java
+ com.max.stocksfeedchecker.StocksFeedCheckerApplicationTests
