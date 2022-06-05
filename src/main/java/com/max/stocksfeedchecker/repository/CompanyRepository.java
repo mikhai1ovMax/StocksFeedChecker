@@ -10,4 +10,6 @@ import java.util.List;
 public interface CompanyRepository extends CrudRepository<Company, Long> {
     @Override
     List<Company> findAll();
+
+    Company getByCompanyName(Company company);
 }

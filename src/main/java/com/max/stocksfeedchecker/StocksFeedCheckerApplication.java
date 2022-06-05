@@ -37,11 +37,23 @@ public class StocksFeedCheckerApplication implements CommandLineRunner {
             List<Company> companies = iexService.getCompaniesData(symbols);
             iexService.printHighestValueStocks(companies);
             iexService.printMostResentCompanies(companies);
-            repository.saveAll(companies);
+            saveCompanies(companies);
             time = System.currentTimeMillis() - time;
 //            System.out.println(time);
             if (time < 5000)
                 Thread.sleep(5000 - time);
+        }
+    }
+
+    private void saveCompanies(List<Company> companies) {
+        for (int i = 0; i < companies.size(); i++) {
+            try {
+                companies.get(i).setId(repository.getByCompanyName(companies.get(i)).getId());
+                repository.save(companies.get(i));
+            } catch (Exception e){
+                repository.save(companies.get(i));
+            }
+
         }
     }
 }
