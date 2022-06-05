@@ -46,13 +46,12 @@ public class StocksFeedCheckerApplication implements CommandLineRunner {
     }
 
     private void saveCompanies(List<Company> companies) {
+
         for (int i = 0; i < companies.size(); i++) {
-            try {
-                companies.get(i).setId(repository.getByCompanyName(companies.get(i)).getId());
-                repository.save(companies.get(i));
-            } catch (Exception e){
-                repository.save(companies.get(i));
+            if (repository.existsByCompanyName(companies.get(i).getCompanyName())) {
+                companies.get(i).setId(repository.getByCompanyName(companies.get(i).getCompanyName()).getId());
             }
+            repository.save(companies.get(i));
 
         }
     }

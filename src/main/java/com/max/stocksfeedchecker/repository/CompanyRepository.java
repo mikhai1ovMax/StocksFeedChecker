@@ -11,5 +11,6 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
     @Override
     List<Company> findAll();
 
-    Company getByCompanyName(Company company);
+    Company getByCompanyName(String name);
+    boolean existsByCompanyName(String name);
 }
