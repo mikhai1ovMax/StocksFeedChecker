@@ -49,7 +49,7 @@ public class IEXService {
         List<IEXCloudClient> clients = new ArrayList<>();
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             clients.add(applicationContext.getBean(IEXCloudClient.class));
             clients.get(i).setSymbol(symbols.get(i));
         }
