@@ -1,16 +1,16 @@
 package com.max.stocksfeedchecker.repository;
 
-import com.max.stocksfeedchecker.model.Company;
+import com.max.stocksfeedchecker.model.CompanyEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CompanyRepository extends CrudRepository<Company, Long> {
+public interface CompanyRepository extends CrudRepository<CompanyEntity, Long> {
     @Override
-    List<Company> findAll();
+    List<CompanyEntity> findAll();
 
-    Company getByCompanyName(String name);
+    CompanyEntity getByCompanyName(String name);
     boolean existsByCompanyName(String name);
 }

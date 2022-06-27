@@ -1,12 +1,11 @@
 package com.max.stocksfeedchecker.model;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ import java.util.Objects;
 @Data
 @RequiredArgsConstructor
 @ToString
-public class Company implements Serializable {
+public class CompanyEntity {
 
     @Id
     @GeneratedValue
@@ -44,7 +43,7 @@ public class Company implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Company company = (Company) o;
+        CompanyEntity company = (CompanyEntity) o;
         return Objects.equals(symbol, company.symbol) && Objects.equals(companyName, company.companyName) && Objects.equals(volume, company.volume) && Objects.equals(previousVolume, company.previousVolume) && Objects.equals(latestPrice, company.latestPrice);
     }
 
