@@ -1,9 +1,6 @@
 package com.max.stocksfeedchecker.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,6 +11,7 @@ import java.util.Objects;
 @Data
 @RequiredArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class CompanyEntity {
 
     @Id
@@ -36,20 +34,7 @@ public class CompanyEntity {
     @Column(name = "latest_price")
     private BigDecimal latestPrice;
 
-    @Column(name = "difference_in_cost")
-    private BigDecimal differenceInCost;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CompanyEntity company = (CompanyEntity) o;
-        return Objects.equals(symbol, company.symbol) && Objects.equals(companyName, company.companyName) && Objects.equals(volume, company.volume) && Objects.equals(previousVolume, company.previousVolume) && Objects.equals(latestPrice, company.latestPrice);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(symbol, companyName, volume, previousVolume, latestPrice);
-    }
+    @Column(name = "cost_change")
+    private BigDecimal change;
 
 }

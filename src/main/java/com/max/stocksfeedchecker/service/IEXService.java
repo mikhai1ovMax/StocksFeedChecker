@@ -20,20 +20,20 @@ import java.util.stream.Collectors;
 public class IEXService {
 
     private final IEXCloudClient iexCloudClient;
+    private final CompanyRepository repository;
 
-
-    Comparator<CompanyEntity> comparatorByDifferenceInCost = Comparator.comparing(CompanyEntity::getDifferenceInCost);
 
     @SneakyThrows
     public List<CompanyEntity> getCompaniesData(List<String> symbols) {
-        symbols = symbols.subList(0, 100);
+        symbols = symbols.subList(0, 1000);
         List<CompanyEntity> companies = new ArrayList<>();
         symbols.forEach(x -> iexCloudClient.getCompanyDetails(x).thenAccept(y -> companies.add(y.toCompany())));
-
-
-        //TODO: tip CompletableFuture.runAsync
-        //TODO: get all objects from list of CP
         return companies;
+    }
+
+    public void saveCompanies(List<CompanyEntity> companies) {
+
+        companies.forEach(x -> repository.saveOrUpdate(x));
     }
 
 

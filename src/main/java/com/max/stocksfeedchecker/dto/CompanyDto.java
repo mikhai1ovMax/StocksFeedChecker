@@ -20,7 +20,7 @@ public class CompanyDto {
     private BigDecimal volume;
     private BigDecimal previousVolume;
     private BigDecimal latestPrice;
-    private BigDecimal differenceInCost;
+    private BigDecimal change;
 
     public static CompanyDto fromCompanyEntity(CompanyEntity companyEntity){
         return CompanyDto.builder()
@@ -30,7 +30,7 @@ public class CompanyDto {
                 .volume(companyEntity.getVolume())
                 .previousVolume(companyEntity.getPreviousVolume())
                 .latestPrice(companyEntity.getLatestPrice())
-                .differenceInCost(companyEntity.getDifferenceInCost())
+                .change(companyEntity.getChange())
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class CompanyDto {
         company.setVolume(volume);
         company.setPreviousVolume(previousVolume);
         company.setLatestPrice(latestPrice);
-        company.setDifferenceInCost(differenceInCost);
+        company.setChange(change);
         return company;
     }
 }
